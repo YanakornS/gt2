@@ -2,8 +2,8 @@ name: 'build and deploy docker image'
 
 on:
   push:
-    tags:
-      - '*'  # Trigger เมื่อ push tag ใด ๆ
+    branches:
+      - main  # Trigger เมื่อ push tag ใด ๆ
 
 jobs:
   build-and-deploy:
@@ -21,7 +21,7 @@ jobs:
 
       - name: Verify Vue Build Output
         run: |
-          CONTAINER_ID=$(docker create ghcr.io/${{ github.actor }}/${{ github.event.repository.name }}:latest)
+          CONTAINER_ID=$(docker create ghcr.io/yanakorns/gt2:latest)
           docker cp $CONTAINER_ID:/usr/share/nginx/html ./dist
           docker rm -v $CONTAINER_ID
           ls -la ./dist
